@@ -7,13 +7,15 @@ import { ENTER_KEY, ESCAPE_KEY } from '../types/constants';
 export default class TodoItem extends Component {
   static propTypes = {
     editing: PropTypes.bool,
-    onCancel: PropTypes.func.isRequired,
-    onDestroy: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onToggle: PropTypes.func.isRequired,
+    editText: PropTypes.string,
+    onCancel: PropTypes.func,
+    onDestroy: PropTypes.func,
+    onEdit: PropTypes.func,
+    onSave: PropTypes.func,
+    onToggle: PropTypes.func,
     todo: PropTypes.shape({
       completed: PropTypes.bool,
+      id: PropTypes.string,
       title: PropTypes.string,
     }).isRequired,
   }
@@ -46,7 +48,7 @@ export default class TodoItem extends Component {
     if (!prevProps.editing && this.props.editing) {
       const node = ReactDOM.findDOMNode(this.editField); // eslint-disable-line
       node.focus();
-      node.setSelectionRange(node.value.length, node.value.length);
+      node.setSelectionRange(node.value.length, node.value.length); // eslint-disable-line
     }
   }
 
@@ -66,11 +68,12 @@ export default class TodoItem extends Component {
   }
 
   handleKeyDown(event) {
+    /* istanbul ignore else */
     if (event.which === ESCAPE_KEY) {
       this.setState({ editText: this.props.todo.title });
       this.props.onCancel(event);
     } else if (event.which === ENTER_KEY) {
-      this.handleSubmit(event);
+      this.handleSubmit();
     }
   }
 

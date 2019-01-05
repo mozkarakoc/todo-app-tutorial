@@ -1,4 +1,5 @@
-import { extend, store, uuid } from '../utils';
+import uuid from 'uuid';
+import { extend, store } from '../utils';
 
 export default class TodoModel {
   constructor(key) {
@@ -18,7 +19,7 @@ export default class TodoModel {
 
   addTodo = (title) => {
     this.todos = this.todos.concat({
-      id: uuid(),
+      id: uuid.v1(),
       title,
       completed: false,
     });

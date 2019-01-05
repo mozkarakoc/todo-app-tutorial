@@ -34,6 +34,7 @@ const Footer = (props) => {
       <ul className="filters">
         <li>
           <a
+            key="filter-all"
             role="link"
             onClick={() => { props.handleFiltering(ALL_TODOS); }}
             className={classNames({ selected: nowShowing === ALL_TODOS })}
@@ -44,6 +45,7 @@ const Footer = (props) => {
         {' '}
         <li>
           <a
+            key="filter-active"
             role="link"
             onClick={() => { props.handleFiltering(ACTIVE_TODOS); }}
             className={classNames({ selected: nowShowing === ACTIVE_TODOS })}
@@ -54,6 +56,7 @@ const Footer = (props) => {
         {' '}
         <li>
           <a
+            key="filter-completed"
             role="link"
             onClick={() => { props.handleFiltering(COMPLETED_TODOS); }}
             className={classNames({ selected: nowShowing === COMPLETED_TODOS })}
@@ -70,14 +73,15 @@ const Footer = (props) => {
 Footer.propTypes = {
   completedCount: PropTypes.number,
   count: PropTypes.number,
-  handleFiltering: PropTypes.func.isRequired,
-  nowShowing: PropTypes.oneOf([ALL_TODOS, COMPLETED_TODOS, ACTIVE_TODOS]).isRequired,
-  onClearCompleted: PropTypes.func.isRequired,
+  handleFiltering: PropTypes.func,
+  nowShowing: PropTypes.oneOf([ALL_TODOS, COMPLETED_TODOS, ACTIVE_TODOS]),
+  onClearCompleted: PropTypes.func,
 };
 
 Footer.defaultProps = {
   completedCount: 0,
   count: 0,
+  nowShowing: ALL_TODOS,
 };
 
 export default Footer;

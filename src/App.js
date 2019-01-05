@@ -38,11 +38,8 @@ class App extends Component {
     if (event.keyCode !== ENTER_KEY) {
       return;
     }
-
-    event.preventDefault();
-
     const val = this.state.newTodo.trim();
-
+    /* istanbul ignore else */
     if (val) {
       this.props.model.addTodo(val);
       this.setState({ newTodo: '' });
@@ -109,7 +106,6 @@ class App extends Component {
     ), this);
 
     const activeTodoCount = todos.reduce((accum, todo) => (todo.completed ? accum : accum + 1), 0);
-
     const completedCount = todos.length - activeTodoCount;
 
     if (activeTodoCount || completedCount) {
